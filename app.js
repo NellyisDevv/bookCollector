@@ -24,6 +24,12 @@ class App {
     /* Grabbing our "Add new book form buttons"*/
     this.$formButtons = document.querySelector('#form-buttons')
 
+    /* Grabbing our placeholder */
+    this.$placeholder = document.querySelector('#placeholder')
+
+    /* Grabbing our books container */
+    this.$books = document.querySelector('#books')
+
     //! Making sure that addEventListeners runs when the app starts up
     this.addEventListeners()
   }
@@ -49,11 +55,16 @@ class App {
       const bookTitle = this.$bookTitle.value
       const numOfPages = this.$numOfPages.value
       // the author, book title, and number of pages HAS to be provided for hasBook to be true
-      const hasBook = author || bookTitle || numOfPages
+      const hasBook = author && bookTitle && numOfPages
       if (hasBook) {
         // if hasBook is true then run this
         // The addBook function is going to take an argument of the parameter as an object because these parameters are going to be placed into the object "newBook"
-        this.addBook({ author, bookTitle, numOfPages })
+        // Object shorthand author: author works the same if we just say author
+        this.addBook({
+          author: author,
+          bookTitle: bookTitle,
+          numOfPages: numOfPages,
+        })
       }
     })
   }
@@ -102,7 +113,34 @@ class App {
       bookTitle: book.bookTitle,
       numOfPages: book.numOfPages,
       color: 'white',
+      // Converting array from being 0 indexed to counting from 1 onwords
+      id: this.books.length > 0 ? this.books[this.books.length - 1].id + 1 : 1,
     }
+    this.books = [...this.books, newBook]
+    console.log(this.books)
+    this.displayBooks()
+    this.closeModalPopup()
+  }
+
+  displayBooks() {
+    const hasBooks = this.books.length > 0
+    this.$placeholder.style.display = hasBooks ? 'none' : 'block'
+
+    this.$books.innerHTML = this.books
+      .map(
+        book => `
+      <div style="background: ${book.color};" class="book">
+      <div class="book-author">${book.author}</div>
+      <div class="book-title">${book.bookTitle}</div>
+      <div class="book-numOfPages">Pages: ${book.numOfPages}</div>
+      <div class='buttons'>
+        <button>Change</button>
+        <button>Delete</button>
+      </div>
+      </div>
+    `
+      )
+      .join('')
   }
 }
 

@@ -128,39 +128,114 @@ main {
   color: white;
 }
 
-/* Books container */
+/* Placeholder */
 
-.books-container {
-  background-color: lightpink;
-  height: 50vh;
-  margin-top: 150px;
-  max-width: 100%;
-  min-width: 88%;
-  /* Temporary until book divs are created */
+.placeholder {
+  color: white;
+  font-size: 2.4rem;
+  height: 40vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
-  font-size: 2.5rem;
-  /* Temporary until book divs are created */
+  padding: 2em;
+}
+
+/* Making the books inside of the books container wrap instead of just adding one on top of the other test this code with other apps!!! */
+#books {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Books containers */
+.book {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 16px;
+  width: 250px;
+  background-color: #fff;
+  box-sizing: border-box;
+  border-radius: 2em;
+  overflow: hidden;
+  position: relative;
+  /* Animations that I did not create just copied */
+  transition-duration: 0.218s;
+  transition-property: background, border, opacity, box-shadow, transform;
+  transition-timing-function: ease-in;
+  /* Animations that I did not create just copied */
+}
+
+/* The hover affect of the div when we hover over our books */
+.book:hover {
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
+    0 1px 3px 1px rgba(60, 64, 67, 0.149);
+}
+
+/* The author portion of the div we create when we instanciate a new book */
+.book-author {
+  background-color: lightcoral;
+  padding: 12px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  min-height: 38px;
+  transition: background-color 0.218s ease-in;
+  box-sizing: border-box;
+  outline: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* The book title portion of the div we create when we instanciate a new book */
+.book-title {
+  background-color: lightgreen;
+  font-size: 1rem;
+  font-weight: 400;
+  min-height: 30px;
+  letter-spacing: 0.01428571em;
+  padding: 12px;
+  box-sizing: border-box;
+  /* Not sure what the font-variant-ligatures mean or outline */
+  font-variant-ligatures: none;
+  outline: none;
+  /* Not sure what the font-variant-ligatures mean or outline */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* The number of pages portion of the div we create when we instanciate a new book */
+.book-numOfPages {
+  background-color: lightsalmon;
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  min-height: 30px;
+  letter-spacing: 0.01428571em;
+  padding: 4px 16px 12px 16px;
+  box-sizing: border-box;
+  font-variant-ligatures: none;
+  outline: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 /* Modal that pops up when "Welcome Home!" is clicked! */
 .add-book-modal {
-  display: block;
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  margin: auto;
-  height: 60vh;
-  max-width: 600px;
-  min-width: 300px;
   background-color: lightskyblue;
+  margin: auto;
+  max-height: 420px;
+  max-width: 500px;
+  min-width: 300px;
   cursor: pointer;
   border-radius: 2em;
-  display: block;
+  display: none;
+  z-index: 999;
 }
 
 /* Working with the popup form items */
@@ -170,10 +245,11 @@ main {
   align-items: center;
   flex-direction: column;
   background-color: lightskyblue;
-  height: 30vh;
-  max-width: 400px;
+  min-height: 220px;
+  max-height: 250px;
+  max-width: 380px;
   margin: auto;
-  margin-top: 80px;
+  margin-top: 50px;
   border-top-left-radius: 2em;
   border-top-right-radius: 2em;
 }
@@ -182,7 +258,7 @@ main {
 .form-buttons {
   background-color: lightskyblue;
   height: 10vh;
-  max-width: 400px;
+  max-width: 380px;
   margin: auto;
   display: flex;
   justify-content: center;
@@ -195,17 +271,6 @@ main {
 #form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* container for the "Finsihed" and "Not Finished" Buttons */
-.read-buttons {
-  background-color: lightyellow;
-  height: 10vh;
-  max-width: 500px;
-  margin: auto;
-  display: flex;
   justify-content: center;
   align-items: center;
 }
