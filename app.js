@@ -30,6 +30,9 @@ class App {
     /* Grabbing our books container */
     this.$books = document.querySelector('#books')
 
+    /* Grabbing our modal close button */
+    this.$modalCloseButton = document.querySelector('#modal-close-btn')
+
     //! Making sure that addEventListeners runs when the app starts up
     this.addEventListeners()
   }
@@ -67,6 +70,12 @@ class App {
         })
       }
     })
+
+    this.$modalCloseButton.addEventListener('click', event => {
+      event.stopPropagation()
+      this.closeModalPopup()
+      this.clearInputValues()
+    })
   }
 
   /* Open the modal when BTN is clicked and close the modal when anything else is clicked! */
@@ -75,6 +84,12 @@ class App {
     const isModalBtnClicked = this.$modalBtn.contains(event.target)
     const isModalPopupClicked = this.$modalPopup.contains(event.target)
 
+    /* This code is checking if hasBook is true and if its true we are going to run it through our conditional that is going to run the function addBook and add the book if we click off the modal instead of just removing it */
+    const author = this.$author.value
+    const bookTitle = this.$bookTitle.value
+    const numOfPages = this.$numOfPages.value
+    const hasBook = author && bookTitle && numOfPages
+
     // Didnt end up needing to specify when the formButtons where clicked
     /* const isFormBtnClicked = this.$formButtons.contains(event.target) */
 
@@ -82,6 +97,8 @@ class App {
       /* If "Welcome Home!" modal clicked open the modal popup */
       // console.log('Open Modal')
       this.openModalPopup()
+    } else if (hasBook) {
+      this.addBook({ author, bookTitle, numOfPages })
     } else {
       /* If anything else is clicked close the popup */
       // console.log('Close Modal')
@@ -114,11 +131,12 @@ class App {
     this.$numOfPages.value = ''
   }
 
-  addBook(book) {
+  // addBook(book) is what this was reverted from both of these work but since addBook is watching for author bookTitle and numOfPages we can use object destructuring in order to be able to use object shorthand in the newBook object
+  addBook({ author, bookTitle, numOfPages }) {
     const newBook = {
-      author: book.author,
-      bookTitle: book.bookTitle,
-      numOfPages: book.numOfPages,
+      author,
+      bookTitle: bookTitle,
+      numOfPages,
       color: 'white',
       // Converting array from being 0 indexed to counting from 1 onwords
       id: this.books.length > 0 ? this.books[this.books.length - 1].id + 1 : 1,
