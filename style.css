@@ -83,19 +83,27 @@ select {
 
 /* Library logo */
 .library-logo {
-  height: 10vh;
+  height: 120px;
+}
+
+/* Body of the app */
+body {
+  background-color: black;
 }
 
 /* main app body */
 main {
   display: flex;
-  height: 100vh;
+  /* Doing this height will mess up the vertical aspect of the app */
+  /* height: 100vh; */
+  /* Doing this height will mess up the vertical aspect of the app */
   flex-direction: column;
   align-items: center;
   justify-content: center;
   max-width: 90%;
   margin: auto;
-  background-color: lightseagreen;
+  padding: 1em;
+  background-color: black;
 }
 
 /* welcome-container */
@@ -105,7 +113,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: purple;
+  background-color: rgb(80, 80, 80);
   height: 15vh;
   border-radius: 2em;
   max-width: 100%;
@@ -121,7 +129,7 @@ main {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(108, 171, 108);
+  /* background-color: rgb(108, 171, 108); */
   height: 10vh;
   padding: 2em;
   margin: auto;
@@ -137,7 +145,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2em;
+  padding: 0.3em;
 }
 
 /* Making the books inside of the books container wrap instead of just adding one on top of the other test this code with other apps!!! */
@@ -145,6 +153,8 @@ main {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  /* If styling messes up try to remove the padding here */
+  padding: 1em;
 }
 
 /* Books containers */
@@ -155,6 +165,9 @@ main {
   margin: 16px;
   width: 250px;
   background-color: #fff;
+  /* Switched to dark mode don't require borders */
+  /* border: 1px solid #d3d3d3; */
+  /* Switched to dark mode don't require borders */
   box-sizing: border-box;
   border-radius: 2em;
   overflow: hidden;
@@ -174,12 +187,12 @@ main {
 
 /* The author portion of the div we create when we instanciate a new book */
 .book-author {
-  background-color: lightcoral;
-  padding: 12px;
+  /* background-color: lightcoral; */
+  padding: 17px;
   font-size: 1.1rem;
   font-weight: 500;
   line-height: 1.5rem;
-  min-height: 38px;
+  min-height: 30px;
   transition: background-color 0.218s ease-in;
   box-sizing: border-box;
   outline: none;
@@ -189,12 +202,12 @@ main {
 
 /* The book title portion of the div we create when we instanciate a new book */
 .book-title {
-  background-color: lightgreen;
+  /* background-color: lightgreen; */
   font-size: 1rem;
   font-weight: 400;
   min-height: 30px;
   letter-spacing: 0.01428571em;
-  padding: 12px;
+  padding: 17px;
   box-sizing: border-box;
   /* Not sure what the font-variant-ligatures mean or outline */
   font-variant-ligatures: none;
@@ -206,18 +219,24 @@ main {
 
 /* The number of pages portion of the div we create when we instanciate a new book */
 .book-numOfPages {
-  background-color: lightsalmon;
+  /* background-color: lightsalmon; */
   font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.5rem;
   min-height: 30px;
   letter-spacing: 0.01428571em;
-  padding: 4px 16px 12px 16px;
+  padding: 10px;
   box-sizing: border-box;
   font-variant-ligatures: none;
   outline: none;
   white-space: pre-wrap;
   word-wrap: break-word;
+}
+
+/* The buttons div when we create a new instance of a book */
+.buttons {
+  padding: 0.8em;
+  /* background-color: lightslategray; */
 }
 
 /* Modal that pops up when "Welcome Home!" is clicked! */
@@ -227,7 +246,7 @@ main {
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: lightskyblue;
+  background-color: rgb(80, 80, 80);
   margin: auto;
   max-height: 420px;
   max-width: 500px;
@@ -244,7 +263,7 @@ main {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: lightskyblue;
+  background-color: rgb(80, 80, 80);
   min-height: 220px;
   max-height: 250px;
   max-width: 380px;
@@ -256,7 +275,7 @@ main {
 
 /* container for the "Submit" and "Close" Buttons */
 .form-buttons {
-  background-color: lightskyblue;
+  background-color: rgb(80, 80, 80);
   height: 10vh;
   max-width: 380px;
   margin: auto;
@@ -310,4 +329,37 @@ input {
   padding: 0.4em;
   font-size: 1.2rem;
   margin-inline: 0.8em;
+}
+
+/* working with done button styles */
+.done-btn {
+  border-radius: 1em;
+  border: none;
+  padding: 0.4em;
+  width: 70px;
+  background-color: rgb(117, 215, 117);
+  color: white;
+  cursor: pointer;
+}
+
+/* working with "Not done" btn */
+.not-done {
+  border-radius: 1em;
+  border: none;
+  padding: 0.5em;
+  width: 70px;
+  background-color: rgb(234, 115, 115);
+  color: white;
+  cursor: pointer;
+}
+
+/* working with "delete btn" */
+.delete-btn {
+  border-radius: 1em;
+  border: none;
+  padding: 0.4em;
+  width: 70px;
+  background-color: rgb(252, 142, 158);
+  color: white;
+  cursor: pointer;
 }

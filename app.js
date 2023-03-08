@@ -107,6 +107,13 @@ class App {
     this.$modalPopup.style.display = 'block'
   }
 
+  /* Had to make a seperate function special for clearing the values because the closeModalPopup() function was deleting our values when we clicked off the input instead of after submit */
+  clearInputValues() {
+    this.$author.value = ''
+    this.$bookTitle.value = ''
+    this.$numOfPages.value = ''
+  }
+
   addBook(book) {
     const newBook = {
       author: book.author,
@@ -120,6 +127,7 @@ class App {
     console.log(this.books)
     this.displayBooks()
     this.closeModalPopup()
+    this.clearInputValues()
   }
 
   displayBooks() {
@@ -132,10 +140,11 @@ class App {
       <div style="background: ${book.color};" class="book">
       <div class="book-author">${book.author}</div>
       <div class="book-title">${book.bookTitle}</div>
-      <div class="book-numOfPages">Pages: ${book.numOfPages}</div>
+      <div class="book-numOfPages">${book.numOfPages}</div>
       <div class='buttons'>
-        <button>Change</button>
-        <button>Delete</button>
+        <button class="done-btn">Done</button>
+        <button class="not-done">Failed</button>
+        <button class="delete-btn">Delete</button>
       </div>
       </div>
     `
