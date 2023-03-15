@@ -11,56 +11,67 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <link rel="shortcut icon" href="./img/library.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./img/library.png" type="image/x-icon" />
     <title>Book Collector</title>
   </head>
   <body>
-  <main id="outer-body">
+    <main id="outer-body">
       <div class="edit-book-modal">
         <div class="edit-book-modal-content">
-          <input type="text" placeholder="Author" class="edit-modal-author">
-          <input placeholder="Book title" type="text" class="edit-modal-book-title">
-          <input placeholder="Number of pages" type="text" class="edit-modal-num-of-pages">
+          <input type="text" placeholder="Author" class="edit-modal-author" />
+          <input
+            placeholder="Book title"
+            type="text"
+            class="edit-modal-book-title"
+          />
+          <input
+            placeholder="Number of pages"
+            type="text"
+            class="edit-modal-num-of-pages"
+          />
           <span class="edit-book-modal-close-btn">Close</span>
         </div>
       </div>
-    <main>
-      <div class="library" id="library">
-        <img
-          class="library-logo"
-          id="library-logo"
-          src="/img/library.png"
-          alt="cartoon logo of a library"
-        />
-        <h1>Library</h1>
-      </div>
-      <div class="welcome-container" id="welcome-container">
-        <div class="welcome-container-text" id="welcome-container-text">
-          <h2>Add Book</h2>
+      <main>
+        <div class="library" id="library">
+          <img
+            class="library-logo"
+            id="library-logo"
+            src="/img/library.png"
+            alt="cartoon logo of a library"
+          />
+          <h1>Library</h1>
         </div>
-      </div>
-      <div class="add-book-modal" id="add-book-modal">
-      <form action="" id="form">
-        <div class="add-book-modal-form">
-          <input placeholder="Author" type="text" id="author" />
-          <input placeholder="Book title" type="text" id="book-title" />
-          <input placeholder="Number of pages" type="text" id="num-of-pages" />
+        <div class="welcome-container" id="welcome-container">
+          <div class="welcome-container-text" id="welcome-container-text">
+            <h2>Add Book</h2>
+          </div>
         </div>
-        <div class="form-buttons" id="form-buttons">
-          <button class="green-btn" id="submit-btn " type="submit">
-            Submit
-          </button>
-          <button class="red-btn" id="modal-close-btn">Close</button>
+        <div class="add-book-modal" id="add-book-modal">
+          <form action="" id="form">
+            <div class="add-book-modal-form">
+              <input placeholder="Author" type="text" id="author" />
+              <input placeholder="Book title" type="text" id="book-title" />
+              <input
+                placeholder="Number of pages"
+                type="text"
+                id="num-of-pages"
+              />
+            </div>
+            <div class="form-buttons" id="form-buttons">
+              <button class="green-btn" id="submit-btn " type="submit">
+                Submit
+              </button>
+              <button class="red-btn" id="modal-close-btn">Close</button>
+            </div>
+          </form>
         </div>
-      </form>
-      </div>
-      <div id="books"></div>
-      </div>
-      <div class="placeholder" id="placeholder">
-        <h3>Books you add appear here</h3>
-      </div>
+        <div id="books"></div>
+        <div class="placeholder" id="placeholder">
+          <h3>Books you add appear here</h3>
+        </div>
+      </main>
     </main>
-  </main>
     <script src="app.js"></script>
   </body>
 </html>

@@ -252,10 +252,11 @@ main {
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgb(80, 80, 80);
+  /* background-color: rgb(80, 80, 80); */
+  background-color: white;
   margin: auto;
-  max-height: 420px;
-  max-width: 500px;
+  max-height: 380px;
+  max-width: 450px;
   min-width: 300px;
   cursor: pointer;
   border-radius: 2em;
@@ -268,7 +269,7 @@ main {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: rgb(80, 80, 80);
+  /* background-color: rgb(80, 80, 80); */
   min-height: 220px;
   max-height: 250px;
   max-width: 380px;
@@ -282,11 +283,12 @@ main {
 .add-book-modal-form input {
   /* remove this and see what happens */
   min-width: 340px;
+  padding: 1em;
 }
 
 /* container for the "Submit" and "Close" Buttons */
 .form-buttons {
-  background-color: rgb(80, 80, 80);
+  /* background-color: rgb(80, 80, 80); */
   height: 10vh;
   max-width: 380px;
   margin: auto;
@@ -382,10 +384,12 @@ input {
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgb(84, 84, 84);
+  /* background-color: rgb(84, 84, 84); */
+  background-color: white;
+  border: 1px solid rgb(210, 210, 210);
   margin: auto;
-  max-height: 300px;
-  max-width: 350px;
+  max-height: 250px;
+  max-width: 320px;
   min-width: 300px;
   cursor: pointer;
   border-radius: 2em;
@@ -410,11 +414,11 @@ input {
 /* edit the content in the edit book modal */
 .edit-book-modal-content {
   display: flex;
-  height: 90%;
+  height: 100%;
   flex-direction: column;
   justify-content: center;
   width: 95%;
-  padding: 2em;
+  padding: 1em;
   margin: auto;
 }
 

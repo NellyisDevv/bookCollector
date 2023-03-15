@@ -1,3 +1,8 @@
+//! FEATURES TO ADD
+//! CSS CONFETTI WHEN USER COMPLETES A BOOK
+//! DIFFERENT FILTER METHODS FOR DIFFERENT FEATURES, MAYBE DELETE A RANDOM BOOK WITH AN ARRAY FILTER METHOD (CHECK ALL YOUR ARRAY FILTER METHODS TO SEE WHAT FEATURE YOU CAN MAKE UP)
+//! INTEGRATE SOME SORT OF API INTO YOUR APP
+
 class App {
   constructor() {
     /* Creating an array for all of the book elements to be added inside of we are seperating this from the DOM elements and also making this array is better because we will have access to many array methods  */
@@ -76,6 +81,8 @@ class App {
       // if we dont switch the order our input values will not populate how we expect them to
       this.openEditModal(event)
       // this.selectBook(event)
+      this.completeBook(event)
+      this.deleteBook(event)
     })
 
     /* Event when clicking on the popup modal in the middle of the screen */
@@ -176,7 +183,12 @@ class App {
     this.$modalPopup.style.display = 'block'
   }
 
-  openEditModal() {
+  openEditModal(event) {
+    /* making sure the edit modal popup doesn't appear when we click either three of these buttons */
+    if (event.target.matches('.delete-btn')) return
+    if (event.target.matches('.done-btn')) return
+    if (event.target.matches('.edit-btn')) return
+
     if (event.target.closest('.book')) {
       this.$editBookModal.classList.toggle('open-modal')
       // create references to the edit modals input values and then populate them based on their value that they hold (change the values to see how this works!)
@@ -250,12 +262,12 @@ class App {
   selectBook(event) {
     // This function will return to you the book that you have selected and it will know which individual book you are trying to grab by the data-id!
     const $selectedBook = event.target.closest('.book')
-    console.log($selectedBook)
+    //! console.log($selectedBook)
     // clear the error (this is happening because we are trying to get the children when a note hasn't been selected yet)
     // if NOT selected book return the function so that the rest of it does not run
     if (!$selectedBook) return
     // we are selecting the children from the DOM element that we have selected, if we selected book id with 1 we will get the children from that book which should give us an array of element in them called HTMLCollection
-    console.log($selectedBook.children)
+    //! console.log($selectedBook.children)
     // array destructure to get our individual values from array HTMLCollection and use as global variable
     const [$author, $bookTitle, $numOfPages] = $selectedBook.children
     // we can now get the title of our destructured array items (to make these avalible as global variables, create them as instance properties)
@@ -274,6 +286,24 @@ class App {
     // we can now go into our openEditModal() and set the values for that modals inputs so that they populate on the screen
   }
 
+  completeBook(event, color = 'lightgreen') {
+    event.stopPropagation()
+    if (!event.target.matches('.done-btn')) return
+    const id = event.target.dataset.id
+    this.books = this.books.map(book =>
+      book.id === Number(id) ? { ...book, color } : book
+    )
+    this.displayBooks()
+  }
+
+  deleteBook(event) {
+    event.stopPropagation()
+    if (!event.target.matches('.delete-btn')) return
+    const id = event.target.dataset.id
+    this.books = this.books.filter(book => book.id !== Number(id))
+    this.displayBooks()
+  }
+
   displayBooks() {
     const hasBooks = this.books.length > 0
     this.$placeholder.style.display = hasBooks ? 'none' : 'block'
@@ -286,9 +316,9 @@ class App {
       <div class="book-title">${book.bookTitle}</div>
       <div class="book-numOfPages">${book.numOfPages}</div>
       <div class='buttons'>
-        <button id="done-btn" class="done-btn">Done</button>
-        <button id="edit-btn" class="edit-btn">Edit</button>
-        <button id="delete-btn" class="delete-btn">Delete</button>
+        <button data-id="${book.id}" id="done-btn" class="done-btn">Done</button>
+        <button data-id="${book.id}" id="edit-btn" class="edit-btn">Edit</button>
+        <button data-id="${book.id}" id="delete-btn" class="delete-btn">Delete</button>
       </div>
       </div>
     `
