@@ -3,6 +3,16 @@ class App {
     /* Creating an array for all of the book elements to be added inside of we are seperating this from the DOM elements and also making this array is better because we will have access to many array methods  */
     this.books = []
 
+    // storing our data from the selectBook(event) function this means no $ symbol
+    // using empty string because we don't want to give these default values
+    this.author = ''
+    this.bookTitle = ''
+    this.numOfPages = ''
+
+    // grabbing our data-id variable for the dataset
+    // we are doing these instance properties so that we can use the
+    this.id = ''
+
     /* Grabing our "Welcome Home" Modal */
     this.$modalBtn = document.querySelector('#welcome-container')
 
@@ -33,6 +43,26 @@ class App {
     /* Grabbing our modal close button */
     this.$modalCloseButton = document.querySelector('#modal-close-btn')
 
+    /* Grabbing the outer body of the app */
+    this.$outerBody = document.querySelector('#outer-body')
+
+    /* Grabbing our edit book modal */
+    this.$editBookModal = document.querySelector('.edit-book-modal')
+
+    /* Grabbing our edit book modal inputs */
+    this.$editBookModalAuthor = document.querySelector('.edit-modal-author')
+    this.$editBookModalBookTitle = document.querySelector(
+      '.edit-modal-book-title'
+    )
+    this.$editBookModalNumOfpages = document.querySelector(
+      '.edit-modal-num-of-pages'
+    )
+
+    /* Grabbing our edit modal close button */
+    this.$editBookModalCloseBtn = document.querySelector(
+      '.edit-book-modal-close-btn'
+    )
+
     //! Making sure that addEventListeners runs when the app starts up
     this.addEventListeners()
   }
@@ -41,10 +71,16 @@ class App {
     /* Event when clicking on the document body */
     document.body.addEventListener('click', event => {
       this.handleModalBtnClick(event)
+      this.selectBook(event)
+      // the order of selectBook and openEditModal have been switched because we first want to select a book and then open the edit modal! (this will make the input work correctly because now we are actually grabbing our "this" values from something!)
+      // if we dont switch the order our input values will not populate how we expect them to
+      this.openEditModal(event)
+      // this.selectBook(event)
     })
 
     /* Event when clicking on the popup modal in the middle of the screen */
     this.$modalPopup.addEventListener('click', event => {
+      event.stopPropagation()
       this.handleModalBtnClick(event)
     })
 
@@ -69,12 +105,17 @@ class App {
           numOfPages: numOfPages,
         })
       }
+      this.$modalPopup.style.display = 'none'
     })
 
     this.$modalCloseButton.addEventListener('click', event => {
       event.stopPropagation()
       this.closeModalPopup()
       this.clearInputValues()
+    })
+
+    this.$editBookModalCloseBtn.addEventListener('click', event => {
+      this.closeEditModal()
     })
   }
 
@@ -83,6 +124,8 @@ class App {
     /* Checking to see if "Welcome Home!" Modal Btn was clicked! */
     const isModalBtnClicked = this.$modalBtn.contains(event.target)
     const isModalPopupClicked = this.$modalPopup.contains(event.target)
+    /* new div created which is a new main wrapping the original main, bad practice but application is now working! */
+    const isOuterBodyClicked = this.$outerBody.contains(event.target)
 
     /* This code is checking if hasBook is true and if its true we are going to run it through our conditional that is going to run the function addBook and add the book if we click off the modal instead of just removing it */
     const author = this.$author.value
@@ -93,16 +136,25 @@ class App {
     // Didnt end up needing to specify when the formButtons where clicked
     /* const isFormBtnClicked = this.$formButtons.contains(event.target) */
 
+    /* else if not working
+    else if (hasBook) {
+      this.addBook({ author, bookTitle, numOfPages })
+      this.closeModalPopup()
+    } 
+    */
     if (isModalBtnClicked) {
       /* If "Welcome Home!" modal clicked open the modal popup */
       // console.log('Open Modal')
       this.openModalPopup()
-    } else if (hasBook) {
-      this.addBook({ author, bookTitle, numOfPages })
     } else {
       /* If anything else is clicked close the popup */
       // console.log('Close Modal')
       this.closeModalPopup()
+    }
+
+    if (hasBook && isOuterBodyClicked) {
+      // console.log('outer body clicked!')
+      this.addBook({ author, bookTitle, numOfPages })
     }
 
     if (isModalPopupClicked) {
@@ -122,6 +174,53 @@ class App {
 
   keepModalOpen() {
     this.$modalPopup.style.display = 'block'
+  }
+
+  openEditModal() {
+    if (event.target.closest('.book')) {
+      this.$editBookModal.classList.toggle('open-modal')
+      // create references to the edit modals input values and then populate them based on their value that they hold (change the values to see how this works!)
+      this.$editBookModalAuthor.value = this.author
+      this.$editBookModalBookTitle.value = this.bookTitle
+      this.$editBookModalNumOfpages.value = this.numOfPages
+    }
+  }
+
+  closeEditModal() {
+    // we want to close the modal and edit the todo
+    // first we want to reference our note so we make another function
+    this.editNote()
+    // we can put our toggle modal class here since we are just toggling it from a CSS class
+    this.$editBookModal.classList.toggle('open-modal')
+  }
+
+  editNote() {
+    // does not need any values passed through it they are already in our input
+    // we need to put them into variables
+    const author = this.$editBookModalAuthor.value
+    const bookTitle = this.$editBookModalBookTitle.value
+    const numOfPages = this.$editBookModalNumOfpages.value
+    // we want to go through our notes array and find the note with the stored id and then take the updated text from the modal title and modal text input and then update that note with the new data
+    // we need to transfrom our array and keep it as the same length using map
+    // take the book id and see if its equal to the id we have stored in the constructor
+    // we create a new object that is going to spread in all of its previous properties which is going to come from book the current book we are iterating over, in the next arguments we want to include the author bookTitle and numOfPages to update their properties otherwise (:) we just want to return the book (if we don't want to update it)
+    /*
+    this.books.map(note =>
+      book.id === Number(this.id)
+        ? { ...book, author, bookTitle, numOfPages }
+        : book
+    )
+    */
+    // the id when we add a note is going to be a string which is different from the original id which is a number to fix this we can convert "this.id" into a number you can also change "book.id" into a string but its better to compare two numbers
+    // we then want to update our books array by telling the code our books array will equal to the new map method if the book is edited
+    this.books = this.books.map(book =>
+      book.id === Number(this.id)
+        ? { ...book, author, bookTitle, numOfPages }
+        : book
+    )
+    // after editing our note we then want to display our note
+    this.displayBooks()
+    // after this we want to close our modal in the function closeEditModal()
   }
 
   /* Had to make a seperate function special for clearing the values because the closeModalPopup() function was deleting our values when we clicked off the input instead of after submit */
@@ -148,6 +247,33 @@ class App {
     this.clearInputValues()
   }
 
+  selectBook(event) {
+    // This function will return to you the book that you have selected and it will know which individual book you are trying to grab by the data-id!
+    const $selectedBook = event.target.closest('.book')
+    console.log($selectedBook)
+    // clear the error (this is happening because we are trying to get the children when a note hasn't been selected yet)
+    // if NOT selected book return the function so that the rest of it does not run
+    if (!$selectedBook) return
+    // we are selecting the children from the DOM element that we have selected, if we selected book id with 1 we will get the children from that book which should give us an array of element in them called HTMLCollection
+    console.log($selectedBook.children)
+    // array destructure to get our individual values from array HTMLCollection and use as global variable
+    const [$author, $bookTitle, $numOfPages] = $selectedBook.children
+    // we can now get the title of our destructured array items (to make these avalible as global variables, create them as instance properties)
+    /*
+    $author.innerText
+    $bookTitle.innerText
+    $numOfPages.innerText
+    */
+    // updated innerText with instance properties we created
+    this.author = $author.innerText
+    this.bookTitle = $bookTitle.innerText
+    this.numOfPages = $numOfPages.innerText
+    // we need the notes id by using the data-id we created in displayBooks
+    // getting the property from this dataset which is actually equal to the book id that we created in addBook referencing books by 1,2,3,etc remember to put this inside of our constructor as well! (also remember since this.id is an instance property we can use it as we like )
+    this.id = $selectedBook.dataset.id
+    // we can now go into our openEditModal() and set the values for that modals inputs so that they populate on the screen
+  }
+
   displayBooks() {
     const hasBooks = this.books.length > 0
     this.$placeholder.style.display = hasBooks ? 'none' : 'block'
@@ -155,14 +281,14 @@ class App {
     this.$books.innerHTML = this.books
       .map(
         book => `
-      <div style="background: ${book.color};" class="book">
+      <div style="background: ${book.color};" class="book" data-id="${book.id}">
       <div class="book-author">${book.author}</div>
       <div class="book-title">${book.bookTitle}</div>
       <div class="book-numOfPages">${book.numOfPages}</div>
       <div class='buttons'>
-        <button class="done-btn">Done</button>
-        <button class="not-done">Failed</button>
-        <button class="delete-btn">Delete</button>
+        <button id="done-btn" class="done-btn">Done</button>
+        <button id="edit-btn" class="edit-btn">Edit</button>
+        <button id="delete-btn" class="delete-btn">Delete</button>
       </div>
       </div>
     `

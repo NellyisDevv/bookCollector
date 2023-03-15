@@ -113,13 +113,18 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgb(80, 80, 80);
-  height: 15vh;
+  background-color: rgb(117, 215, 117);
+  height: 7vh;
   border-radius: 2em;
-  max-width: 100%;
-  min-width: 60%;
+  max-width: 200px;
+  min-width: 300px;
   cursor: pointer;
   margin-top: 12px;
+}
+
+.welcome-container:hover {
+  transform: scale(1.1);
+  transition: 1s;
 }
 
 /* Text inside of the welcome container */
@@ -140,8 +145,8 @@ main {
 
 .placeholder {
   color: white;
-  font-size: 2.4rem;
-  height: 40vh;
+  font-size: 2rem;
+  height: 30vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -241,6 +246,7 @@ main {
 
 /* Modal that pops up when "Welcome Home!" is clicked! */
 .add-book-modal {
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -253,7 +259,6 @@ main {
   min-width: 300px;
   cursor: pointer;
   border-radius: 2em;
-  display: none;
   z-index: 999;
 }
 
@@ -271,6 +276,12 @@ main {
   margin-top: 50px;
   border-top-left-radius: 2em;
   border-top-right-radius: 2em;
+}
+
+/* without this the inputs in the modal get really small */
+.add-book-modal-form input {
+  /* remove this and see what happens */
+  min-width: 340px;
 }
 
 /* container for the "Submit" and "Close" Buttons */
@@ -343,12 +354,12 @@ input {
 }
 
 /* working with "Not done" btn */
-.not-done {
+.edit-btn {
   border-radius: 1em;
   border: none;
-  padding: 0.5em;
+  padding: 0.4em;
   width: 70px;
-  background-color: rgb(234, 115, 115);
+  background-color: rgb(136, 199, 220);
   color: white;
   cursor: pointer;
 }
@@ -359,7 +370,63 @@ input {
   border: none;
   padding: 0.4em;
   width: 70px;
-  background-color: rgb(252, 142, 158);
+  background-color: rgb(234, 115, 115);
   color: white;
   cursor: pointer;
+}
+
+/* edit book modal body */
+.edit-book-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgb(84, 84, 84);
+  margin: auto;
+  max-height: 300px;
+  max-width: 350px;
+  min-width: 300px;
+  cursor: pointer;
+  border-radius: 2em;
+  z-index: 999;
+  /* code to make the modal invisible by default */
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.1);
+  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+  /* code to make the modal invisible by default */
+}
+
+.open-modal {
+  /* code to make the modal visible to the user again */
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+  /* code to make the modal visible to the user again */
+}
+
+/* edit the content in the edit book modal */
+.edit-book-modal-content {
+  display: flex;
+  height: 90%;
+  flex-direction: column;
+  justify-content: center;
+  width: 95%;
+  padding: 2em;
+  margin: auto;
+}
+
+/* close button inside of our edit book modal */
+.edit-book-modal-close-btn {
+  text-align: center;
+  border-radius: 1em;
+  border: none;
+  padding: 0.4em;
+  width: 70px;
+  background-color: rgb(136, 199, 220);
+  color: white;
+  cursor: pointer;
+  margin-top: 1em;
 }

@@ -1,3 +1,46 @@
 {
-  "liveServer.settings.port": 5501
+  "liveServer.settings.port": 5501,
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "name": "comment",
+        "scope": [
+          "comment"
+        ],
+        "settings": {
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "name": "Variable",
+        "scope": [
+          "variable.language",
+          "string.other.link.title.markdown"
+        ],
+        "settings": {
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "name": "Keyword Storage",
+        "scope": [
+          "storage"
+        ],
+        "settings": {
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "name": "Entity",
+        "scope": [
+          "entity.other.attribute-name",
+          "entity.name.method"
+        ],
+        "settings": {
+          "fontStyle": "italic"
+        }
+      }
+    ],
+    "comments": ""
+  }
 }

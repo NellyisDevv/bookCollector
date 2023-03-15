@@ -11,10 +11,20 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="./img/library.png" type="image/x-icon">
     <title>Book Collector</title>
   </head>
   <body>
-    <main id="main">
+  <main id="outer-body">
+      <div class="edit-book-modal">
+        <div class="edit-book-modal-content">
+          <input type="text" placeholder="Author" class="edit-modal-author">
+          <input placeholder="Book title" type="text" class="edit-modal-book-title">
+          <input placeholder="Number of pages" type="text" class="edit-modal-num-of-pages">
+          <span class="edit-book-modal-close-btn">Close</span>
+        </div>
+      </div>
+    <main>
       <div class="library" id="library">
         <img
           class="library-logo"
@@ -30,11 +40,11 @@
         </div>
       </div>
       <div class="add-book-modal" id="add-book-modal">
+      <form action="" id="form">
         <div class="add-book-modal-form">
-        <form action="" id="form">
-          <input required placeholder="Author" type="text" id="author" />
-          <input required placeholder="Book title" type="text" id="book-title" />
-          <input required placeholder="Number of pages" type="text" id="num-of-pages" />
+          <input placeholder="Author" type="text" id="author" />
+          <input placeholder="Book title" type="text" id="book-title" />
+          <input placeholder="Number of pages" type="text" id="num-of-pages" />
         </div>
         <div class="form-buttons" id="form-buttons">
           <button class="green-btn" id="submit-btn " type="submit">
@@ -50,6 +60,7 @@
         <h3>Books you add appear here</h3>
       </div>
     </main>
+  </main>
     <script src="app.js"></script>
   </body>
 </html>
