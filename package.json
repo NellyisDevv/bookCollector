@@ -1,0 +1,22 @@
+{
+  "name": "bookcollector",
+  "version": "1.0.0",
+  "description": "App for keeping track of books you've read",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NellyisDevv/bookCollector.git"
+  },
+  "author": "Nelson Rosario",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NellyisDevv/bookCollector/issues"
+  },
+  "homepage": "https://github.com/NellyisDevv/bookCollector#readme",
+  "dependencies": {
+    "bookquotes": "^1.2.0"
+  }
+}

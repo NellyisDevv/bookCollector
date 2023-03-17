@@ -3,10 +3,17 @@
 //! DIFFERENT FILTER METHODS FOR DIFFERENT FEATURES, MAYBE DELETE A RANDOM BOOK WITH AN ARRAY FILTER METHOD (CHECK ALL YOUR ARRAY FILTER METHODS TO SEE WHAT FEATURE YOU CAN MAKE UP)
 //! INTEGRATE SOME SORT OF API INTO YOUR APP
 
+//! BOOK IDEA DIV THAT GIVES THE USER A RANDOM IDEA FOR A BOOK THEY MIGHT WANT TO READ, THIS INFORMATION CAN BE OBTAINED FROM AN API, AND WOULD RENDER OUT DATA ABOUT THE BOOK ALL YOU NEED IS THE BOOK TITLE BOOK AUTHOR AND NUMBER OF PAGES
+
+//! ALLOW THE USER TO PUT THE PROGRESS OF THEIR CURRENT READING, LIKE HOW MANY PAGES THEY HAVE READ, WITH THE + AND - SYMBOLS AND IF THEY ARE NOT AT THE COMPLETE NUMBER OF PAGES THEN THE GREEN FILTER ON THE BOOK WILL DISAPEAR!
+
+//! TOO MUCH COPY CODE IN THE CSS FILE, CHECK TO SEE ALL OF THE CODE THAT YOU HAVE WRITTEN MORE THAN ONCE AND MAKE IT ONE CSS CLASS AND APPLY THAT CLASS TO THE DOM BE CAREFUL NOT TO CHANGE CLASSES THAT ARE CURRENTLY BEING GRABED BY THE JAVASCRIPT APP FILE
+
 class App {
   constructor() {
     /* Creating an array for all of the book elements to be added inside of we are seperating this from the DOM elements and also making this array is better because we will have access to many array methods  */
-    this.books = []
+    // this.books = []
+    this.books = JSON.parse(localStorage.getItem('books')) || []
 
     // storing our data from the selectBook(event) function this means no $ symbol
     // using empty string because we don't want to give these default values
@@ -68,8 +75,20 @@ class App {
       '.edit-book-modal-close-btn'
     )
 
+    /* Grabbing our view stats modal */
+    this.$viewStats = document.querySelector('#information-container')
+
+    /* Grabbing our stats modal */
+    this.$statsModal = document.querySelector('.stats-modal')
+
+    /* Grabbing our stats modal btn */
+    this.$statsModalBtn = document.querySelector('.stats-modal-btn')
+
     //! Making sure that addEventListeners runs when the app starts up
     this.addEventListeners()
+
+    //! Making sure that all books render when the app starts up
+    this.render()
   }
 
   addEventListeners() {
@@ -83,12 +102,18 @@ class App {
       // this.selectBook(event)
       this.completeBook(event)
       this.deleteBook(event)
+      this.revertBook(event)
     })
 
     /* Event when clicking on the popup modal in the middle of the screen */
     this.$modalPopup.addEventListener('click', event => {
       event.stopPropagation()
       this.handleModalBtnClick(event)
+    })
+
+    this.$viewStats.addEventListener('click', event => {
+      event.stopPropagation()
+      this.handleStatsBtnClick(event)
     })
 
     /* Event when clicking the sumbit button or hitting the enter key */
@@ -124,6 +149,20 @@ class App {
     this.$editBookModalCloseBtn.addEventListener('click', event => {
       this.closeEditModal()
     })
+
+    this.$statsModalBtn.addEventListener('click', event => {
+      this.closeStatsModal()
+    })
+  }
+
+  handleStatsBtnClick(event) {
+    const isStatsBtnClicked = this.$viewStats.contains(event.target)
+
+    if (isStatsBtnClicked) {
+      this.openStatsModal()
+    } else {
+      this.closeStatsModal()
+    }
   }
 
   /* Open the modal when BTN is clicked and close the modal when anything else is clicked! */
@@ -175,8 +214,16 @@ class App {
     this.$formButtons.style.display = 'block'
   }
 
+  openStatsModal() {
+    this.$statsModal.style.display = 'block'
+  }
+
   closeModalPopup() {
     this.$modalPopup.style.display = 'none'
+  }
+
+  closeStatsModal() {
+    this.$statsModal.style.display = 'none'
   }
 
   keepModalOpen() {
@@ -187,7 +234,7 @@ class App {
     /* making sure the edit modal popup doesn't appear when we click either three of these buttons */
     if (event.target.matches('.delete-btn')) return
     if (event.target.matches('.done-btn')) return
-    if (event.target.matches('.edit-btn')) return
+    if (event.target.matches('.revert-btn')) return
 
     if (event.target.closest('.book')) {
       this.$editBookModal.classList.toggle('open-modal')
@@ -230,9 +277,11 @@ class App {
         ? { ...book, author, bookTitle, numOfPages }
         : book
     )
+    // this.saveBooks()
     // after editing our note we then want to display our note
-    this.displayBooks()
+    // this.displayBooks()
     // after this we want to close our modal in the function closeEditModal()
+    this.render()
   }
 
   /* Had to make a seperate function special for clearing the values because the closeModalPopup() function was deleting our values when we clicked off the input instead of after submit */
@@ -254,7 +303,9 @@ class App {
     }
     this.books = [...this.books, newBook]
     console.log(this.books)
-    this.displayBooks()
+    // this.saveBooks()
+    // this.displayBooks()
+    this.render()
     this.closeModalPopup()
     this.clearInputValues()
   }
@@ -293,7 +344,9 @@ class App {
     this.books = this.books.map(book =>
       book.id === Number(id) ? { ...book, color } : book
     )
-    this.displayBooks()
+    // this.saveBooks()
+    // this.displayBooks()
+    this.render()
   }
 
   deleteBook(event) {
@@ -301,7 +354,28 @@ class App {
     if (!event.target.matches('.delete-btn')) return
     const id = event.target.dataset.id
     this.books = this.books.filter(book => book.id !== Number(id))
+    // this.saveBooks()
+    // this.displayBooks()
+    this.render()
+  }
+
+  revertBook(event, color = 'white') {
+    event.stopPropagation()
+    if (!event.target.matches('.revert-btn')) return
+    const id = event.target.dataset.id
+    this.books = this.books.map(book =>
+      book.id === Number(id) ? { ...book, color } : book
+    )
+    this.render()
+  }
+
+  render() {
+    this.saveBooks()
     this.displayBooks()
+  }
+
+  saveBooks() {
+    localStorage.setItem('books', JSON.stringify(this.books))
   }
 
   displayBooks() {
@@ -317,7 +391,7 @@ class App {
       <div class="book-numOfPages">${book.numOfPages}</div>
       <div class='buttons'>
         <button data-id="${book.id}" id="done-btn" class="done-btn">Done</button>
-        <button data-id="${book.id}" id="edit-btn" class="edit-btn">Edit</button>
+        <button data-id="${book.id}" id="edit-btn" class="revert-btn">Revert</button>
         <button data-id="${book.id}" id="delete-btn" class="delete-btn">Delete</button>
       </div>
       </div>

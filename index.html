@@ -11,11 +11,35 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <link rel="shortcut icon" href="./img/library.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="./img/open-book.png" type="image/x-icon" />
     <title>Book Collector</title>
   </head>
   <body>
     <main id="outer-body">
+      <div class="stats-modal">
+        <div class="stats-modal-content">
+          <h3 class="info-text">Information</h3>
+          <hr />
+          <div class="book-count-container book-container-columns">
+            <p>Books</p>
+            <p id="books-count" class="books-count">3</p>
+          </div>
+          <div class="book-complete-container book-container-columns">
+            <p>Completed Books</p>
+            <p class="books-complete" id="books-complete">1</p>
+          </div>
+          <div class="book-total-pages-container book-container-columns">
+            <p>Total Pages</p>
+            <p class="total-pages" id="total-pages">3282</p>
+          </div>
+          <div
+            class="stats-modal-close-btn book-container-columns"
+            id="stats-modal-close-btn"
+          >
+            <button class="stats-modal-btn">Close</button>
+          </div>
+        </div>
+      </div>
       <div class="edit-book-modal">
         <div class="edit-book-modal-content">
           <input type="text" placeholder="Author" class="edit-modal-author" />
@@ -37,14 +61,22 @@
           <img
             class="library-logo"
             id="library-logo"
-            src="/img/library.png"
+            src="/img/open-book.png"
             alt="cartoon logo of a library"
           />
           <h1>Library</h1>
         </div>
-        <div class="welcome-container" id="welcome-container">
-          <div class="welcome-container-text" id="welcome-container-text">
-            <h2>Add Book</h2>
+        <div class="actions">
+          <div class="welcome-container" id="welcome-container">
+            <div class="welcome-container-text" id="welcome-container-text">
+              <h2>Add Book</h2>
+            </div>
+          </div>
+          <div class="information-container" id="information-container">
+            <h2>View Stats</h2>
+          </div>
+          <div class="api-generate-book" id="api-generate-book">
+            <h2>Get Quote</h2>
           </div>
         </div>
         <div class="add-book-modal" id="add-book-modal">
