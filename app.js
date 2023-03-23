@@ -320,6 +320,7 @@ class App {
     // we are selecting the children from the DOM element that we have selected, if we selected book id with 1 we will get the children from that book which should give us an array of element in them called HTMLCollection
     //! console.log($selectedBook.children)
     // array destructure to get our individual values from array HTMLCollection and use as global variable
+    console.log($selectedBook.children)
     const [$author, $bookTitle, $numOfPages] = $selectedBook.children
     // we can now get the title of our destructured array items (to make these avalible as global variables, create them as instance properties)
     /*
